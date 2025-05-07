@@ -1,0 +1,105 @@
+_wandb:
+    value:
+        cli_version: 0.19.10
+        m: []
+        python_version: 3.11.5
+        t:
+            "1":
+                - 1
+                - 2
+                - 3
+                - 5
+                - 53
+                - 55
+            "2":
+                - 1
+                - 2
+                - 3
+                - 5
+                - 53
+                - 55
+            "3":
+                - 16
+                - 23
+                - 55
+            "4": 3.11.5
+            "5": 0.19.10
+            "8":
+                - 3
+                - 5
+            "12": 0.19.10
+            "13": windows-amd64
+ch_gan:
+    value:
+        in_channels: 2
+        out_channels: 3
+        spectral_norm: true
+dataset:
+    value:
+        train:
+            augment: true
+            image_size: 256
+            ndvi_dir: ndvi
+            optical_dir: optical
+            root_dir: data/train
+            sar_dir: sar
+            urban_heatmap_dir: urban_heatmap
+            water_mask_dir: water_mask
+device:
+    value: cuda
+dire:
+    value:
+        base_channels: 64
+        beta_end: 0.02
+        beta_start: "1e-4"
+        in_channels: 3
+        num_timesteps: 1000
+        time_dim: 256
+evaluation:
+    value:
+        metrics:
+            - psnr
+            - ssim
+            - lpips
+            - fid
+        num_samples: 1000
+        save_dir: results
+        test_dir: data/test
+logging:
+    value:
+        tensorboard:
+            flush_secs: 10
+            log_dir: runs
+        wandb:
+            entity: null
+            log_interval: 100
+            project: sar-colorization
+sat:
+    value:
+        attn_drop_rate: 0.1
+        depth: 12
+        dim: 256
+        drop_rate: 0.1
+        in_channels: 2
+        mlp_ratio: 4
+        num_heads: 8
+        qkv_bias: true
+training:
+    value:
+        batch_size: 32
+        beta1: 0.5
+        beta2: 0.999
+        checkpoint_dir: checkpoints
+        learning_rate: 0.0002
+        num_epochs: 100
+        num_workers: 4
+        save_interval: 5
+        terrain_loss_weight: 10
+vgg_model:
+    value:
+        layers:
+            - relu1_2
+            - relu2_2
+            - relu3_3
+            - relu4_3
+        pretrained: true
