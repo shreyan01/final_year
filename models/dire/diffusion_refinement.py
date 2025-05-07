@@ -171,12 +171,12 @@ class DiffusionRefinement(nn.Module):
 
 class DiffusionProcess:
     def __init__(self, num_timesteps=1000, beta_start=1e-4, beta_end=0.02):
-        self.num_timesteps = num_timesteps
-        self.beta_start = beta_start
-        self.beta_end = beta_end
+        self.num_timesteps = int(num_timesteps)
+        self.beta_start = float(beta_start)
+        self.beta_end = float(beta_end)
         
         # Linear noise schedule
-        self.betas = torch.linspace(beta_start, beta_end, num_timesteps)
+        self.betas = torch.linspace(self.beta_start, self.beta_end, self.num_timesteps)
         self.alphas = 1. - self.betas
         self.alphas_cumprod = torch.cumprod(self.alphas, dim=0)
         
