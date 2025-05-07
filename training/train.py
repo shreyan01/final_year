@@ -18,6 +18,13 @@ from models.sat.speckle_aware_transformer import SpeckleAwareTransformer
 from models.ch_gan.color_hallucination_gan import Generator, Discriminator
 from models.dire.diffusion_refinement import DiffusionRefinement, DiffusionProcess
 
+def get_device():
+    """Get the appropriate device (CUDA if available, else CPU)."""
+    if torch.cuda.is_available():
+        return torch.device('cuda')
+    print("CUDA not available. Using CPU instead.")
+    return torch.device('cpu')
+
 class HNDPGAModel(nn.Module):
     def __init__(self, config):
         super().__init__()
@@ -84,17 +91,21 @@ def train(config):
     # Initialize wandb
     wandb.init(project="sar-colorization", config=config)
     
+    # Get device
+    device = get_device()
+    config['device'] = device
+    
     # Create models
-    model = HNDPGAModel(config).to(config['device'])
-    discriminator = Discriminator().to(config['device'])
+    model = HNDPGAModel(config).to(device)
+    discriminator = Discriminator().to(device)
     
     # Create optimizers
     model_optimizer = optim.Adam(model.parameters(), lr=config['training']['learning_rate'])
     disc_optimizer = optim.Adam(discriminator.parameters(), lr=config['training']['learning_rate'])
     
     # Create loss functions
-    adversarial_loss = TripleAdversarialLoss().to(config['device'])
-    terrain_loss = TerrainConsistentLoss(config['vgg_model']).to(config['device'])
+    adversarial_loss = TripleAdversarialLoss().to(device)
+    terrain_loss = TerrainConsistentLoss(config['vgg_model']).to(device)
     
     # Create data loaders
     train_loader = DataLoader(
@@ -113,14 +124,20 @@ def train(config):
         
         for batch in progress_bar:
             # Get data
-            sar_images = batch['sar'].to(config['device'])
-            optical_images = batch['optical'].to(config['device'])
+            sar_images = batch['sar'].to(device)
+            optical_images = batch['optical'].to(device)
             ndvi = batch.get('ndvi', None)
+            if ndvi is not None:
+                ndvi = ndvi.to(device)
             water_mask = batch.get('water_mask', None)
+            if water_mask is not None:
+                water_mask = water_mask.to(device)
             urban_heatmap = batch.get('urban_heatmap', None)
+            if urban_heatmap is not None:
+                urban_heatmap = urban_heatmap.to(device)
             
             # Generate timesteps for diffusion
-            t = torch.randint(0, config['dire']['num_timesteps'], (sar_images.shape[0],)).to(config['device'])
+            t = torch.randint(0, config['dire']['num_timesteps'], (sar_images.shape[0],)).to(device)
             
             # Train discriminator
             disc_optimizer.zero_grad()

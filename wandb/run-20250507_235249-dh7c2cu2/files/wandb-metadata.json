@@ -1,0 +1,42 @@
+{
+  "os": "Windows-10-10.0.22631-SP0",
+  "python": "CPython 3.11.5",
+  "startedAt": "2025-05-07T14:52:49.959199Z",
+  "program": "C:\\Users\\shrey\\Desktop\\final_year\\training\\train.py",
+  "codePath": "training\\train.py",
+  "git": {
+    "remote": "https://github.com/shreyan01/final_year.git",
+    "commit": "d9b7f3b4938011605663860e90dd5816f72cf036"
+  },
+  "email": "shreyanshukla19@gmail.com",
+  "root": "C:\\Users\\shrey\\Desktop\\final_year",
+  "host": "LAPTOP-RFPBH3GP",
+  "executable": "C:\\Users\\shrey\\Desktop\\final_year\\venv\\Scripts\\python.exe",
+  "codePathLocal": "training\\train.py",
+  "cpu_count": 4,
+  "cpu_count_logical": 8,
+  "gpu": "NVIDIA GeForce GTX 1650",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "486885625856",
+      "used": "442843848704"
+    }
+  },
+  "memory": {
+    "total": "8419024896"
+  },
+  "cpu": {
+    "count": 4,
+    "countLogical": 8
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA GeForce GTX 1650",
+      "memoryTotal": "4294967296",
+      "cudaCores": 896,
+      "architecture": "Turing"
+    }
+  ],
+  "cudaVersion": "12.3"
+}
