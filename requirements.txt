@@ -11,7 +11,8 @@ einops>=0.4.0
 kornia>=0.6.0
 albumentations>=1.0.0
 rasterio>=1.2.0
-gdal>=3.4.0
+# GDAL should be installed separately using conda or pre-built wheels
+# For Windows: Download GDAL wheel from https://www.lfd.uci.edu/~gohlke/pythonlibs/#gdal
 scikit-image>=0.18.0
 lpips>=0.1.4
 wandb>=0.12.0

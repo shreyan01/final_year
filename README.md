@@ -38,15 +38,35 @@ sar_colorization/
 - Python 3.8+
 - PyTorch 2.0+
 - CUDA 11.7+
+- GDAL 3.4.0+
 - Other dependencies listed in requirements.txt
 
 ## Installation
+
+### Option 1: Using Conda (Recommended)
+```bash
+# Create conda environment
+conda create -n sar_colorization python=3.8
+conda activate sar_colorization
+
+# Install GDAL
+conda install -c conda-forge gdal
+
+# Install other dependencies
+pip install -r requirements.txt
+```
+
+### Option 2: Using pip with pre-built wheels
 ```bash
 # Create virtual environment
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Install dependencies
+# Install GDAL
+# For Windows: Download appropriate wheel from https://www.lfd.uci.edu/~gohlke/pythonlibs/#gdal
+# Example: pip install GDAL‑3.4.0‑cp38‑cp38‑win_amd64.whl
+
+# Install other dependencies
 pip install -r requirements.txt
 ```
 
