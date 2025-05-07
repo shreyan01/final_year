@@ -1,0 +1,76 @@
+# Device configuration
+device: 'cuda'  # or 'cpu'
+
+# Model configurations
+sat:
+  in_channels: 2  # VV/VH channels
+  dim: 256
+  depth: 12
+  num_heads: 8
+  mlp_ratio: 4.0
+  qkv_bias: true
+  drop_rate: 0.1
+  attn_drop_rate: 0.1
+
+ch_gan:
+  in_channels: 2
+  out_channels: 3
+  spectral_norm: true
+
+dire:
+  in_channels: 3
+  time_dim: 256
+  base_channels: 64
+  num_timesteps: 1000
+  beta_start: 1e-4
+  beta_end: 0.02
+
+# Training configuration
+training:
+  num_epochs: 100
+  batch_size: 32
+  learning_rate: 0.0002
+  beta1: 0.5
+  beta2: 0.999
+  num_workers: 4
+  save_interval: 5
+  checkpoint_dir: 'checkpoints'
+  terrain_loss_weight: 10.0
+
+# Dataset configuration
+dataset:
+  train:
+    root_dir: 'data/train'
+    sar_dir: 'sar'
+    optical_dir: 'optical'
+    ndvi_dir: 'ndvi'
+    water_mask_dir: 'water_mask'
+    urban_heatmap_dir: 'urban_heatmap'
+    image_size: 256
+    augment: true
+
+# VGG model configuration for perceptual loss
+vgg_model:
+  pretrained: true
+  layers: ['relu1_2', 'relu2_2', 'relu3_3', 'relu4_3']
+
+# Logging configuration
+logging:
+  wandb:
+    project: 'sar-colorization'
+    entity: null  # Set your wandb username here
+    log_interval: 100
+  tensorboard:
+    log_dir: 'runs'
+    flush_secs: 10
+
+# Evaluation configuration
+evaluation:
+  metrics:
+    - 'psnr'
+    - 'ssim'
+    - 'lpips'
+    - 'fid'
+  test_dir: 'data/test'
+  save_dir: 'results'
+  num_samples: 1000 
